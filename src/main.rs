@@ -5,9 +5,9 @@ async fn post_data(req_body:String) -> Result<(), Box<dyn std::error::Error + Se
 
     let req = Request::builder()
     .method(Method::POST)
-    .uri("http://173.249.46.156:8080/abunzi_mis_service/api/minCases/addCase")
+    .uri("http://172.259.46.159:8080/abunzi_mis_service/api/minCases/addCase")
     .header("content-type", "application/json")
-    .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1bXVtYWoiLCJleHAiOjE2MjU3OTkwNTksImlhdCI6MTYyNTc4MTA1OX0.V_ZGohPVN9cedowOGaoYRwNMIZpJwVZ5tHw6v0QyliD2bfVn_VQSd-2N1EZRshao_q4szo6RUWj1FKy8WzfuXQ")
+    .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1bXVtYWoiLCJleHiOjE2MjU3OTkwNTksImlhdCI6MTYyNTc4MTA1OX0.V_ZGohPVN9cedowOGaoYRwNMIZpJwVZ5tHw6v0QyliD2bfVn_VQSd-2N1EZRshao_q4szo6RUWj1FKy8WzfuXQ")
     .body(Body::from(req_body))?;
 
     // We'll send it in a second...
