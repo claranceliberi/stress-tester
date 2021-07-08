@@ -1,24 +1,43 @@
 use hyper::{Body, Method, Request, Client};
+use std::time::{ SystemTime, Instant};
+use std::thread;
 
 async fn post_data(req_body:String) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
 
+    let then = SystemTime::now();
+
     let req = Request::builder()
     .method(Method::POST)
-    .uri("http://172.259.46.159:8080/abunzi_mis_service/api/minCases/addCase")
+    .uri("http://173.249.46.156:8080/abunzi_mis_service/api/minCases/addCase")
     .header("content-type", "application/json")
-    .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1bXVtYWoiLCJleHiOjE2MjU3OTkwNTksImlhdCI6MTYyNTc4MTA1OX0.V_ZGohPVN9cedowOGaoYRwNMIZpJwVZ5tHw6v0QyliD2bfVn_VQSd-2N1EZRshao_q4szo6RUWj1FKy8WzfuXQ")
+    .header("Authorization", "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1bXVtYWoiLCJleHAiOjE2MjU3OTkwNTksImlhdCI6MTYyNTc4MTA1OX0.V_ZGohPVN9cedowOGaoYRwNMIZpJwVZ5tHw6v0QyliD2bfVn_VQSd-2N1EZRshao_q4szo6RUWj1FKy8WzfuXQ")
     .body(Body::from(req_body))?;
+
 
     // We'll send it in a second...
 
     let client = Client::new();
 
-    println!("in method");
     // POST it...
-    let resp = client.request(req).await?;
+    // for x in 1..100000 as u128{
+        // let now = SystemTime::now();
+        // println!("{} time : ", x);
+        let resp = client.request(req).await?;
+        println!("{:?} {:?}", resp.status(), Instant::now());
+    // }
 
-    println!("{:?}", resp);
+    
+    match then.elapsed() {
+        Ok(elapsed) => {
+            // it prints '2'
+            println!(" elapsed:{:?}", elapsed);
+        }
+        Err(e) => {
+            // an error occurred!
+            println!("Error: {:?}", e);
+        }
+    }
 
     Ok(())
 }
@@ -76,10 +95,8 @@ async fn main()  {
     }
     "#;
 
-    for x in 1..1000000{
-        println!("{} time : ", x);
+    
         post_data(String::from(req_body)).await;
-    }
 
     // Ok(())
 }
