@@ -76,7 +76,10 @@ async fn main()  {
     }
     "#;
 
-    post_data(String::from(req_body)).await;
+    for x in 1..1000000{
+        println!("{} time : ", x);
+        post_data(String::from(req_body)).await;
+    }
 
     // Ok(())
 }
